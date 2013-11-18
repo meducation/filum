@@ -1,5 +1,11 @@
 require "filum/version"
 
 module Filum
-  # Your code goes here...
+
+  def self.logger
+    logger ||= Filum::Logger.new('log/filum.log')
+    logger.level = Logger::INFO
+    logger
+  end
+
 end
