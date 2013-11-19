@@ -24,12 +24,6 @@ module Filum
       Filum.config.logfile = test_logfile
       assert_equal test_logfile, Filum.config.logfile
     end
-
-    def test_logger
-      logger = mock
-      Filum.config.logger = logger
-      assert_equal logger, Filum.config.logger
-    end
   end
 end
 

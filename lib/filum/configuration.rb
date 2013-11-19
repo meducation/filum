@@ -6,8 +6,7 @@ module Filum
   class Configuration
 
     SETTINGS = [
-      :logfile,
-      :logger
+      :logfile
     ]
     attr_accessor *SETTINGS
 

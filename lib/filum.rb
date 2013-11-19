@@ -25,11 +25,6 @@ module Filum
     end
   end
 
-
-  def self.logger=(logger)
-    @logger = logger
-  end
-
   # Filum logger.
   #
   # Logger. Log in the following way:

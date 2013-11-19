@@ -7,10 +7,7 @@ module Filum
       super
 
       Filum.config do |config|
-        #config.logfile = "/tmp/filum_test_#{Time.now.to_i}.log"
-        logger = Logger.new(STDOUT)
-        logger.level = Logger::INFO
-        config.logger = logger
+        config.logfile = "/tmp/filum_test_#{Time.now.to_i}.log"
       end
     end
   end
