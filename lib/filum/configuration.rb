@@ -6,13 +6,10 @@ module Filum
   class Configuration
 
     SETTINGS = [
+      :logfile,
       :logger
     ]
-    attr_writer *SETTINGS
-
-    def initialize
-      self.logger = Filum::Logger.new
-    end
+    attr_accessor *SETTINGS
 
   end
 end

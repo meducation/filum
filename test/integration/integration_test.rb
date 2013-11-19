@@ -2,19 +2,16 @@ require File.expand_path('../../test_helper', __FILE__)
 
 module Filum
 
-  class Worker
-    def self.process
-      Filum.logger.info "Processing"
-    end
-  end
-
   class IntegrationTest < Minitest::Test
-    def test_one
-      test_thread = Thread.new do
-        Thread.current[:context_id] = " [12345]"
-        Worker.process
+    def setup
+      super
+
+      Filum.config do |config|
+        #config.logfile = "/tmp/filum_test_#{Time.now.to_i}.log"
+        logger = Logger.new(STDOUT)
+        logger.level = Logger::INFO
+        config.logger = logger
       end
-      test_thread.join
     end
   end
 end
