@@ -1,5 +1,10 @@
 # Filum
 
+[![Build Status](https://travis-ci.org/meducation/filum.png)](https://travis-ci.org/meducation/filum)
+[![Dependencies](https://gemnasium.com/meducation/filum.png?travis)](https://gemnasium.com/meducation/filum)
+[![Code Climate](https://codeclimate.com/github/meducation/filum.png)](https://codeclimate.com/github/meducation/filum)
+
+
 Filum is a logger which automatically adds a context id to each log line.
 
 This is useful when logging in multi threaded and multi process environments. 
