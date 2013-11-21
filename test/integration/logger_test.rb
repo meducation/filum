@@ -15,7 +15,7 @@ module Filum
         Worker.process
       end
       test_thread.join
-      assert_logged(/\[12345\] Processing/)
+      assert_logged(/\[12345\]/)
     end
 
     def test_multiple_threads
@@ -29,8 +29,8 @@ module Filum
       end
       test_thread1.join
       test_thread2.join
-      assert_logged(/\[23456\] Processing/)
-      assert_logged(/\[34567\] Processing/)
+      assert_logged(/\[23456\]/)
+      assert_logged(/\[34567\]/)
     end
 
 
