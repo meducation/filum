@@ -7,7 +7,7 @@ module Filum
       super
 
       Filum.config do |config|
-        config.logfile = "/tmp/filum_test_#{Time.now.to_i}.log"
+        config.logfile = "/tmp/log/filum_test_#{Time.now.to_i}.log"
       end
     end
   end

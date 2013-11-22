@@ -32,7 +32,13 @@ module Filum
   #   Filum.logger.info "Log this"
   #
   def self.logger
-    @logger ||= Filum::Logger.new(Filum.config.logfile)
+    logfile = Filum.config.logfile
+    dir = File.dirname(logfile)
+    unless File.directory?(dir)
+      FileUtils.mkdir_p(dir)
+    end
+
+    @logger ||= Filum::Logger.new(logfile)
     @logger.level = Logger::INFO
     @logger
   end
