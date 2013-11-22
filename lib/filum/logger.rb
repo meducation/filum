@@ -7,23 +7,23 @@ module Filum
     end
 
     def info(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} #{caller[0]} [#{Thread.current[:context_id]}] INFO | #{str}")
+      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] INFO | #{str} | #{caller[0]}")
     end
 
     def fatal(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} #{caller[0]} [#{Thread.current[:context_id]}] FATAL | #{str}")
+      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] FATAL | #{str} | #{caller[0]}")
     end
 
     def error(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} #{caller[0]} [#{Thread.current[:context_id]}] ERROR | #{str}")
+      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] ERROR | #{str} | #{caller[0]}")
     end
 
     def warn(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} #{caller[0]} [#{Thread.current[:context_id]}] WARN | #{str}")
+      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] WARN | #{str} | #{caller[0]}")
     end
 
     def debug(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} #{caller[0]} [#{Thread.current[:context_id]}] DEBUG | #{str}")
+      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] DEBUG | #{str} | #{caller[0]}")
     end
   end
 end
