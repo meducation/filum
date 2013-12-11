@@ -9,3 +9,9 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 require "filum"
 
+class Minitest::Test
+  def setup
+    super
+    Filum.instance_variable_set(:@config, nil)
+  end
+end
