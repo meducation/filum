@@ -2,32 +2,42 @@ require 'logger'
 
 module Filum
   class Logger < ::Logger
+
+    def initialize(*args)
+      super
+      self.formatter = Filum::Logger::Formatter.new
+    end
+
     def context_id=(context_id)
       Thread.current[:context_id] = context_id
     end
 
-    def info(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] INFO | #{calling_file_and_line} | #{str}")
-    end
+    class Formatter < Logger::Formatter
+      def call(severity, timestamp, progname, msg)
+        "#{timestamp} thread_id-#{Thread.current.object_id} [#{formatted_context_id}] #{severity} | #{formatted_calling_file_and_line} | #{msg}\n"
+      end
 
-    def fatal(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] FATAL | #{calling_file_and_line} | #{str}")
-    end
+      private
+      def formatted_context_id
+        context_id.ljust(Filum.config.context_id_length)
+      end
 
-    def error(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] ERROR | #{calling_file_and_line} | #{str}")
-    end
+      def context_id
+        Thread.current[:context_id].to_s
+      end
 
-    def warn(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] WARN | #{calling_file_and_line} | #{str}")
-    end
+      def formatted_calling_file_and_line
+        filename_length = Filum.config.filename_length
+        truncated_filename_length = filename_length - 3
 
-    def debug(str)
-      super("#{DateTime.now} thread_id-#{Thread.current.object_id} [#{Thread.current[:context_id]}] DEBUG | #{calling_file_and_line} | #{str}")
-    end
-    
-    def calling_file_and_line
-      caller[1].match(/([\w\.]+\:\d+)\:in /)
+        _, file, line = calling_code.match(/([\w\.]+)\:(\d+)\:in /).to_a
+        file = "#{file[0,truncated_filename_length]}..." if file.length >= filename_length 
+        "#{file}:#{line.ljust(3)}".ljust(filename_length + 4)
+      end
+
+      def calling_code
+        caller[4]
+      end
     end
   end
 end
