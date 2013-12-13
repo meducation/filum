@@ -25,7 +25,7 @@ module Filum
     end
 
     def calling_code
-      caller[4]
+      caller[5]
     end
   end
 end

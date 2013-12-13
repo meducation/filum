@@ -38,6 +38,13 @@ module Filum
       Filum.logger.info "Foobar #{random_string}"
       assert_logged(/Foobar #{random_string}$/)
     end
+    
+    def test_caller_line_is_correct
+      expected_file = 'logger_test.rb'
+      expected_line = __LINE__+1
+      Filum.logger.info "Foobar"
+      assert_logged(/#{expected_file}:#{expected_line}/)
+    end
 
     private
     def assert_logged(regex)
