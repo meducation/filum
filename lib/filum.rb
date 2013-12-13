@@ -1,6 +1,7 @@
 require "filum/version"
 require "filum/filum_error"
 require "filum/configuration"
+require "filum/log_formatter"
 require "filum/logger"
 
 module Filum
