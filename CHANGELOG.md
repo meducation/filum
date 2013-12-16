@@ -1,3 +1,6 @@
+1.0.2 / 2013-12-16
+[FEATURE] By default, rotate logs daily 
+
 1.0.1 / 2013-12-13
 [BUG_FIX] Rendering correct source file/line 
 
