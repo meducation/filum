@@ -39,7 +39,7 @@ module Filum
       FileUtils.mkdir_p(dir)
     end
 
-    @logger ||= Filum::Logger.new(logfile)
+    @logger ||= Filum::Logger.new(logfile, shift_age='daily')
     @logger.level = Logger::INFO
     @logger
   end
