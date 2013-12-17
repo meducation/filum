@@ -38,12 +38,21 @@ module Filum
       Filum.logger.info "Foobar #{random_string}"
       assert_logged(/Foobar #{random_string}$/)
     end
-    
+
     def test_caller_line_is_correct
       expected_file = 'logger_test.rb'
       expected_line = __LINE__+1
       Filum.logger.info "Foobar"
       assert_logged(/#{expected_file}:#{expected_line}/)
+    end
+
+    def test_verbose_severity
+      assert_equal 6, Logger::Severity::VERBOSE
+    end
+
+    def test_verbose
+      Filum::LogFormatter.any_instance.expects(:call).with("VERB", anything(), nil, "My Verbose Logline")
+      Filum.logger.verbose "My Verbose Logline"
     end
 
     private

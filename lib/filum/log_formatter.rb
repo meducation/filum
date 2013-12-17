@@ -20,10 +20,10 @@ module Filum
       truncated_filename_length = filename_length - 3
 
       _, file, line = calling_code.match(/([\w\.]+)\:(\d+)\:in /).to_a
-      file = "#{file[0,truncated_filename_length]}..." if file.length >= filename_length 
+      file = "#{file[0,truncated_filename_length]}..." if file.length >= filename_length
       "#{file}:#{line.ljust(3)}".ljust(filename_length + 4)
     end
-    
+
     def formatted_thread_id
       "t-#{thread_id}".ljust(12)
     end
