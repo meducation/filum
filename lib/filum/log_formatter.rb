@@ -3,7 +3,7 @@ require 'logger'
 module Filum
   class LogFormatter < Logger::Formatter
     def call(severity, timestamp, progname, msg)
-      "#{timestamp} #{formatted_thread_id} [#{formatted_context_id}] #{severity} | #{formatted_calling_file_and_line} | #{msg}\n"
+      "#{timestamp} #{formatted_thread_id} [#{formatted_context_id}] #{severity.to_s.ljust(5)} | #{formatted_calling_file_and_line} | #{msg}\n"
     end
 
     private
