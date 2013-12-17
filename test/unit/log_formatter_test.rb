@@ -92,5 +92,19 @@ module Filum
       output = formatter.send(:formatted_calling_file_and_line)
       assert_equal "foobar.txt:30           ", output
     end
+    
+    def test_call_calls_formatted_thread_id
+      formatter = Filum::LogFormatter.new
+      formatter.expects(:formatted_thread_id)
+      formatter.call("", "", "", "")
+    end
+    
+    def test_formatted_thread_id_should_pad
+      formatter = Filum::LogFormatter.new
+      formatter.stubs(thread_id: "0123456")
+      output = formatter.send(:formatted_thread_id)
+      assert_equal "t-0123456   ", output
+    end
+    
   end
 end
