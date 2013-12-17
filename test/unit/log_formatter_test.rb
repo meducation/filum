@@ -4,7 +4,7 @@ module Filum
   
   class LogFormatterTest < Minitest::Test
     
-    def test_string_format
+    def test_string_format_contains_correct_when_padding_stripped_out
       formatter = Filum::LogFormatter.new
       severity = "SEV123"
       timestamp = "Timestamp123"
@@ -12,12 +12,37 @@ module Filum
       context_id = "context_id"
       object_id = Thread.current.object_id
       file_and_line = "file_and_line"
-      formatter.stubs(calling_file_and_line: file_and_line)
+      formatter.stubs(formatted_calling_file_and_line: file_and_line)
       Thread.current[:context_id] = context_id
 
       output = formatter.call(severity, timestamp, nil, msg)
-      desired = "#{timestamp} thread_id-#{object_id} [#{context_id}] #{severity} | #{file_and_line} | #{msg}\n"
-      assert_equal desired.strip.hex, output.strip.hex
+      desired = "#{timestamp} t-#{object_id} [#{context_id}] #{severity} | #{file_and_line} | #{msg}\n"
+      assert_equal desired, output.gsub(/[ ]+/, ' ')
+    end
+    
+    def test_severity_should_pad_to_5_chars
+      formatter = Filum::LogFormatter.new
+      severity = "SEV"
+      timestamp = "Timestamp123"
+      msg = "My Message"
+      output = formatter.call(severity, timestamp, nil, msg)
+      actual_severity_field = output.match(/SEV\s+\|/)[0]
+      assert_equal "SEV   |", actual_severity_field
+    end
+    
+    def test_can_format_with_nil_severity
+      formatter = Filum::LogFormatter.new
+      formatter.call(nil, "timestamp", nil, "msg")
+    end
+    
+    def test_can_format_with_nil_timestamp
+      formatter = Filum::LogFormatter.new
+      formatter.call("SEV", nil, nil, "msg")
+    end
+    
+    def test_can_format_with_nil_msg
+      formatter = Filum::LogFormatter.new
+      formatter.call("SEV", "timestamp", nil, nil)
     end
 
     def test_call_calls_formatted_context_id
@@ -92,5 +117,26 @@ module Filum
       output = formatter.send(:formatted_calling_file_and_line)
       assert_equal "foobar.txt:30           ", output
     end
+    
+    def test_call_calls_formatted_thread_id
+      formatter = Filum::LogFormatter.new
+      formatter.expects(:formatted_thread_id)
+      formatter.call("", "", "", "")
+    end
+    
+    def test_formatted_thread_id_should_pad
+      formatter = Filum::LogFormatter.new
+      formatter.stubs(thread_id: "0123456")
+      output = formatter.send(:formatted_thread_id)
+      assert_equal "t-0123456   ", output
+    end
+    
+    def test_formatted_thread_id_should_overflow_not_trim
+      formatter = Filum::LogFormatter.new
+      formatter.stubs(thread_id: "01234567890")
+      output = formatter.send(:formatted_thread_id)
+      assert_equal "t-01234567890", output
+    end
+    
   end
 end
