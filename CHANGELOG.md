@@ -1,3 +1,6 @@
+1.0.3 / 2013-12-17
+[FEATURE] Tidy up formatting to have positional padding 
+
 1.0.2 / 2013-12-16
 [FEATURE] By default, rotate logs daily 
 
