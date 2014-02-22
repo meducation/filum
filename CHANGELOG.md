@@ -1,3 +1,6 @@
+2.0.0 / 2014-02-22
+[FEATURE] Remove config and add Filum.setup
+
 1.0.3 / 2013-12-17
 [FEATURE] Tidy up formatting to have positional padding 
 

@@ -38,7 +38,7 @@ module Filum
       Filum.logger.info "Foobar #{random_string}"
       assert_logged(/Foobar #{random_string}$/)
     end
-    
+
     def test_caller_line_is_correct
       expected_file = 'logger_test.rb'
       expected_line = __LINE__+1
@@ -48,7 +48,7 @@ module Filum
 
     private
     def assert_logged(regex)
-      assert File.readlines(Filum.config.logfile).grep(regex).size == 1
+      assert File.readlines(Filum.logger.logfile).grep(regex).size == 1
     end
   end
 end
