@@ -12,6 +12,6 @@ require "filum"
 class Minitest::Test
   def setup
     super
-    Filum.instance_variable_set(:@config, nil)
+    Filum.instance_variable_set(:@logger, nil)
   end
 end

@@ -1,29 +1,20 @@
 require "filum/version"
 require "filum/filum_error"
-require "filum/configuration"
 require "filum/log_formatter"
 require "filum/logger"
 
 module Filum
 
-  # Filum configuration settings.
+  # Filum setup method
   #
-  # Settings should be set in an initializer or using some
-  # other method that insures they are set before any
-  # Filum code is used. They can be set as followed:
+  # This must be called before Filum.logger is used.
   #
-  #   Filum.config.logfile = "/var/log/mylogfile.log"
+  # Options can be
+  # * <tt>:config.context_id_length</tt> Defaults to 6
+  # * <tt>:filename_length</tt> Defaults to 20
   #
-  # The following settings are allowed:
-  #
-  # * <tt>:logfile</tt> - The logfile
-  def self.config
-    @config ||= Configuration.new
-    if block_given?
-      yield @config
-    else
-      @config
-    end
+  def self.setup(logfile, options = {})
+    @logger = Filum::Logger.new(logfile, options)
   end
 
   # Filum logger.
@@ -33,15 +24,7 @@ module Filum
   #   Filum.logger.info "Log this"
   #
   def self.logger
-    logfile = Filum.config.logfile
-    dir = File.dirname(logfile)
-    unless File.directory?(dir)
-      FileUtils.mkdir_p(dir)
-    end
-
-    @logger ||= Filum::Logger.new(logfile, shift_age='daily')
-    @logger.level = Logger::INFO
+    raise FilumError.new("Filum is not setup. Please call Filum#setup") unless @logger
     @logger
   end
-
 end
