@@ -1,3 +1,6 @@
+2.1.0 / 2014-07-12
+[FEATURE] Allow STDOUT as logging options
+
 2.0.0 / 2014-02-22
 [FEATURE] Remove config and add Filum.setup
 

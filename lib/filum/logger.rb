@@ -19,6 +19,7 @@ module Filum
 
     private
     def create_log_directory
+      return unless @logfile.is_a?(String)
       dir = File.dirname(@logfile)
       unless File.directory?(dir)
         FileUtils.mkdir_p(dir)
