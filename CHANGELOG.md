@@ -1,3 +1,6 @@
+2.2.0 / 2014-10-07
+[FEATURE] Log timings using start_ and end_
+
 2.1.0 / 2014-07-12
 [FEATURE] Allow STDOUT as logging options
 

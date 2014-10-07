@@ -24,7 +24,7 @@ module Filum
     end
 
     def assert_logged(regex)
-      assert File.readlines(@filename).grep(regex).size == 1
+      assert File.readlines(@filename).grep(regex).size == 1, "Pattern (#{regex}) was not found"
     end
   end
 end

@@ -12,7 +12,8 @@ module Filum
     end
 
     def assert_logged(regex)
-      assert File.readlines(Filum.logger.logfile).grep(regex).size == 1
+      lines = File.readlines(Filum.logger.logfile)
+      assert lines.grep(regex).size == 1, "Pattern (#{regex}) was not found in \n#{lines.join}"
     end
   end
 end

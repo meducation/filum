@@ -46,5 +46,15 @@ module Filum
       Filum.logger.info "Foobar"
       assert_logged(/#{expected_file}:#{expected_line}/)
     end
+
+    def test_log_timings
+      expected_file = 'integration_test_...'
+      Filum.logger.start_timing 'Foo'
+      Filum.logger.end_timing 'Foo'
+
+      assert_logged(/Started timing for Foo/)
+      assert_logged(/Stopped timing for Foo/)
+    end
+
   end
 end
