@@ -1,3 +1,6 @@
+2.2.1 / 2014-10-08
+[BUG_FIX] Fix memory leak in timing code
+
 2.2.0 / 2014-10-07
 [FEATURE] Log timings using start_ and end_
 

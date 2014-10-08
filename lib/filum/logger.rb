@@ -29,6 +29,7 @@ module Filum
       finish = Time.now
       if @timings[label]
         info("Stopped timing for #{label} at #{@timings[label]}, #{(finish.to_f - @timings[label].to_f).round(3)}")
+        @timings.delete(label)
       else
         info("Stopped timing for #{label} at #{@timings[label]}, no start time found")
       end
